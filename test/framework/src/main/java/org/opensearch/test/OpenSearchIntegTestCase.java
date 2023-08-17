@@ -1111,13 +1111,11 @@ public abstract class OpenSearchIntegTestCase extends OpenSearchTestCase {
                 }
             }
 
-            if (logger.isDebugEnabled()) {
                 if (lastKnownCount < numDocs) {
-                    logger.debug("[{}] docs indexed. waiting for [{}]", lastKnownCount, numDocs);
+                    logger.debug("[{}] docs indexed. waiting for [{}]", () -> lastKnownCount, () -> numDocs);
                 } else {
-                    logger.debug("[{}] docs visible for search (needed [{}])", lastKnownCount, numDocs);
+                    logger.debug("[{}] docs visible for search (needed [{}])", () -> lastKnownCount, () -> numDocs);
                 }
-            }
 
             assertThat(lastKnownCount, greaterThanOrEqualTo(numDocs));
         }, maxWaitTimeMs, TimeUnit.MILLISECONDS);
